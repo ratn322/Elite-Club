@@ -627,87 +627,6 @@
             color: var(--danger);
         }
         
-        /* Rewards Page */
-        .rewards-page {
-            background: var(--secondary);
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 80px;
-        }
-        
-        .rewards-header {
-            margin-bottom: 20px;
-        }
-        
-        .rewards-title {
-            font-size: 24px;
-            font-weight: 700;
-        }
-        
-        .rewards-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-        
-        .reward-card {
-            background: linear-gradient(135deg, #1a0a3a, #2a0d5a);
-            border-radius: 10px;
-            padding: 20px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.1);
-            box-shadow: var(--shadow);
-        }
-        
-        .reward-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,107,0,0.1) 0%, rgba(0,0,0,0) 70%);
-        }
-        
-        .reward-icon {
-            font-size: 40px;
-            color: var(--gold);
-            margin-bottom: 15px;
-            filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.5));
-        }
-        
-        .reward-title {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-        
-        .reward-desc {
-            font-size: 14px;
-            opacity: 0.8;
-            margin-bottom: 15px;
-        }
-        
-        .reward-btn {
-            background: var(--accent);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            padding: 8px 20px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            box-shadow: 0 4px 10px rgba(255,107,0,0.2);
-        }
-        
-        .reward-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(255,107,0,0.3);
-        }
-        
         /* Account Page */
         .account-page {
             background: var(--secondary);
@@ -780,86 +699,6 @@
         
         .logout-btn:hover {
             background: rgba(255,61,113,0.2);
-        }
-        
-        /* Bonus Page */
-        .bonus-page {
-            background: var(--secondary);
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 80px;
-        }
-        
-        .bonus-header {
-            margin-bottom: 20px;
-        }
-        
-        .bonus-title {
-            font-size: 24px;
-            font-weight: 700;
-        }
-        
-        .bonus-card {
-            background: linear-gradient(135deg, #1a0a3a, #2a0d5a);
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.1);
-            box-shadow: var(--shadow);
-        }
-        
-        .bonus-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(0,230,118,0.1) 0%, rgba(0,0,0,0) 70%);
-        }
-        
-        .bonus-card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-        
-        .bonus-card-title {
-            font-size: 18px;
-            font-weight: 700;
-        }
-        
-        .bonus-card-amount {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--success);
-            text-shadow: 0 2px 5px rgba(0, 230, 118, 0.3);
-        }
-        
-        .bonus-card-desc {
-            opacity: 0.8;
-            margin-bottom: 20px;
-        }
-        
-        .bonus-card-btn {
-            width: 100%;
-            background: var(--success);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            padding: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            box-shadow: 0 4px 10px rgba(0,230,118,0.2);
-        }
-        
-        .bonus-card-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,230,118,0.3);
         }
         
         /* Game Pages */
@@ -1352,18 +1191,652 @@
             margin-bottom: 5px;
         }
         
+        /* ===================== SPIN & WIN SECTION ===================== */
+        .spin-win-page {
+            background: var(--secondary);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .spin-win-header {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .spin-win-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #ff9e00, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 10px rgba(255, 107, 0, 0.3);
+        }
+        
+        .spin-win-subtitle {
+            opacity: 0.8;
+            font-size: 16px;
+        }
+        
+        .spin-win-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+        
+        @media (min-width: 900px) {
+            .spin-win-content {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+        }
+        
+        .wheel-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .wheel-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        .wheel {
+            width: 100%;
+            height: auto;
+            transition: transform 4s cubic-bezier(0.17, 0.67, 0.13, 0.99);
+            transform-origin: center;
+        }
+        
+        .spin-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(to bottom, #ff9e00, #ff6b00);
+            border: none;
+            color: white;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 5px 15px rgba(255, 107, 0, 0.5);
+            z-index: 10;
+            transition: var(--transition);
+        }
+        
+        .spin-button:hover {
+            transform: translate(-50%, -50%) scale(1.05);
+            box-shadow: 0 8px 25px rgba(255, 107, 0, 0.8);
+        }
+        
+        .spin-button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+        
+        .pointer {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 60px;
+            z-index: 5;
+        }
+        
+        .spins-counter {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            padding: 8px 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 20px;
+            font-weight: 600;
+        }
+        
+        .spins-counter i {
+            color: var(--accent);
+        }
+        
+        .prizes-section {
+            flex: 1;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            width: 100%;
+            max-width: 500px;
+        }
+        
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--gold);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-title i {
+            color: var(--accent);
+        }
+        
+        .prizes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .prize-card {
+            background: rgba(255, 255, 255, 0.07);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+        }
+        
+        .prize-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--accent);
+        }
+        
+        .prize-icon {
+            font-size: 28px;
+            margin-bottom: 10px;
+            color: var(--gold);
+        }
+        
+        .prize-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+        
+        .prize-value {
+            font-weight: 700;
+            color: var(--success);
+            font-size: 18px;
+        }
+        
+        .history-section {
+            margin-top: 30px;
+        }
+        
+        .history-list {
+            max-height: 200px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+        
+        .history-list::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .history-list::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+        
+        .history-list::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 10px;
+        }
+        
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            margin-bottom: 8px;
+            animation: fadeIn 0.5s ease;
+            font-size: 14px;
+        }
+        
+        .history-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .history-prize {
+            font-weight: 600;
+        }
+        
+        .history-time {
+            opacity: 0.7;
+            font-size: 12px;
+        }
+        
+        .win-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+        
+        .win-modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .win-modal-content {
+            background: linear-gradient(135deg, #1a0a3a, #2a0d5a);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            position: relative;
+            transform: scale(0.8);
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .win-modal.active .win-modal-content {
+            transform: scale(1);
+        }
+        
+        .modal-icon {
+            font-size: 70px;
+            color: var(--gold);
+            margin-bottom: 15px;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+            animation: pulse 2s infinite;
+        }
+        
+        .modal-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--gold);
+        }
+        
+        .prize-announcement {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .prize-amount {
+            font-size: 42px;
+            font-weight: 800;
+            color: var(--success);
+            text-shadow: 0 0 15px rgba(0, 230, 118, 0.7);
+            margin: 15px 0;
+            animation: glow 2s infinite alternate;
+        }
+        
+        .modal-text {
+            font-size: 16px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .modal-button {
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 35px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(255,107,0,0.3);
+            margin-top: 15px;
+        }
+        
+        .modal-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255,107,0,0.5);
+        }
+        
+        /* Confetti container */
+        .confetti-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2000;
+            display: none;
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: var(--gold);
+            opacity: 0;
+            animation: confetti-fall 5s ease-in-out forwards;
+        }
+        
+        .confetti:nth-child(2n) {
+            background: var(--success);
+        }
+        
+        .confetti:nth-child(3n) {
+            background: var(--accent);
+        }
+        
+        /* Animations */
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                text-shadow: 0 0 20px rgba(0, 230, 118, 0.5);
+            }
+            50% {
+                transform: scale(1.1);
+                text-shadow: 0 0 30px rgba(0, 230, 118, 0.8);
+            }
+            100% {
+                transform: scale(1);
+                text-shadow: 0 0 20px rgba(0, 230, 118, 0.5);
+            }
+        }
+        
+        @keyframes glow {
+            0% {
+                text-shadow: 0 0 10px rgba(0, 230, 118, 0.7);
+            }
+            100% {
+                text-shadow: 0 0 20px rgba(0, 230, 118, 1), 0 0 30px rgba(0, 230, 118, 0.8);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+        
+        /* ===================== ENHANCED BONUS SECTION ===================== */
+        .bonus-page {
+            background: var(--secondary);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .bonus-header {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .bonus-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #ff9e00, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 10px rgba(255, 107, 0, 0.3);
+        }
+        
+        .bonus-subtitle {
+            opacity: 0.8;
+            font-size: 16px;
+        }
+        
+        .bonus-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .bonus-card {
+            background: linear-gradient(135deg, #2a0d5a, #1a0a3a);
+            border-radius: 15px;
+            padding: 25px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            z-index: 1;
+        }
+        
+        .bonus-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+        }
+        
+        .bonus-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, rgba(0,0,0,0) 70%);
+            z-index: -1;
+        }
+        
+        .bonus-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .bonus-card-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--gold);
+        }
+        
+        .bonus-card-icon {
+            font-size: 40px;
+            color: var(--gold);
+            filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.5));
+        }
+        
+        .bonus-card-amount {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--success);
+            text-shadow: 0 2px 5px rgba(0, 230, 118, 0.3);
+            margin: 15px 0;
+            text-align: center;
+        }
+        
+        .bonus-card-desc {
+            opacity: 0.8;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+        
+        .bonus-card-btn {
+            width: 100%;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(255,107,0,0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .bonus-card-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, #ff9e00, #ff6b00);
+            z-index: -1;
+            opacity: 0;
+            transition: var(--transition);
+        }
+        
+        .bonus-card-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255,107,0,0.4);
+        }
+        
+        .bonus-card-btn:hover::before {
+            opacity: 1;
+        }
+        
+        /* Claim Animation */
+        .bonus-confetti-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10000;
+            display: none;
+        }
+        
+        .bonus-success-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        .bonus-success-modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .bonus-success-content {
+            background: linear-gradient(135deg, #1a0a3a, #2a0d5a);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
+            transform: scale(0.8);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .bonus-success-modal.active .bonus-success-content {
+            transform: scale(1);
+        }
+        
+        .bonus-success-icon {
+            font-size: 80px;
+            color: var(--success);
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(0, 230, 118, 0.5);
+            animation: pulse 2s infinite;
+        }
+        
+        .bonus-success-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--gold);
+        }
+        
+        .bonus-success-message {
+            font-size: 18px;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+        
+        .bonus-amount {
+            font-size: 42px;
+            font-weight: 800;
+            color: var(--gold);
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
+            margin: 20px 0;
+            animation: glow 2s infinite alternate;
+        }
+        
+        .bonus-continue-btn {
+            background: var(--success);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 15px 40px;
+            font-weight: 600;
+            font-size: 18px;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(0,230,118,0.3);
+            margin-top: 20px;
+        }
+        
+        .bonus-continue-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,230,118,0.4);
+        }
+        
         /* Responsive Adjustments */
         @media (max-width: 768px) {
             .games-grid {
                 grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            }
-            
-            .rewards-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .color-game-options {
-                grid-template-columns: 1fr;
             }
             
             .auth-box {
@@ -1385,6 +1858,14 @@
             
             .wallet-actions-grid {
                 grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .spin-win-content {
+                flex-direction: column;
+            }
+            
+            .prizes-section {
+                max-width: 100%;
             }
         }
         
@@ -1421,6 +1902,14 @@
             .play-btn {
                 padding: 6px 15px;
                 font-size: 13px;
+            }
+            
+            .bonus-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .bonus-card {
+                padding: 20px;
             }
         }
     </style>
@@ -1745,49 +2234,78 @@
                 </div>
             </div>
             
-            <!-- Rewards Page -->
+            <!-- Rewards Page (Spin & Win) -->
             <div class="page" id="rewards-page">
-                <div class="rewards-page">
-                    <div class="rewards-header">
-                        <h1 class="rewards-title">Your Rewards</h1>
-                        <p style="opacity: 0.8; margin-top: 10px;">Complete missions to earn exclusive rewards</p>
+                <div class="spin-win-page">
+                    <div class="spin-win-header">
+                        <h1 class="spin-win-title">SPIN & WIN</h1>
+                        <p class="spin-win-subtitle">Spin the wheel for a chance to win amazing prizes! Every spin could be a big win.</p>
                     </div>
                     
-                    <div class="rewards-grid">
-                        <div class="reward-card">
-                            <div class="reward-icon">
-                                <i class="fas fa-coins"></i>
+                    <div class="spin-win-content">
+                        <div class="wheel-container">
+                            <div class="wheel-wrapper">
+                                <img src="https://i.ibb.co/5W4nK0t/wheel.png" alt="Spin Wheel" class="wheel" id="wheel">
+                                <img src="https://i.ibb.co/3T7sV8d/pointer.png" alt="Pointer" class="pointer">
+                                <button class="spin-button" id="spin-button">
+                                    SPIN
+                                </button>
                             </div>
-                            <h3 class="reward-title">Daily Bonus</h3>
-                            <p class="reward-desc">Login daily to claim your bonus coins</p>
-                            <button class="reward-btn">Claim Now</button>
+                            
+                            <div class="spins-counter">
+                                <i class="fas fa-sync-alt"></i>
+                                <span>Spins left: <span id="spins-count">3</span></span>
+                            </div>
                         </div>
                         
-                        <div class="reward-card">
-                            <div class="reward-icon">
-                                <i class="fas fa-trophy"></i>
+                        <div class="prizes-section">
+                            <h2 class="section-title">
+                                <i class="fas fa-gift"></i> Available Prizes
+                            </h2>
+                            <p>Spin the wheel to win one of these amazing prizes. Good luck!</p>
+                            
+                            <div class="prizes-grid">
+                                <div class="prize-card">
+                                    <div class="prize-icon">
+                                        <i class="fas fa-coins"></i>
+                                    </div>
+                                    <div class="prize-name">Cash Prize</div>
+                                    <div class="prize-value">₹1,000</div>
+                                </div>
+                                
+                                <div class="prize-card">
+                                    <div class="prize-icon">
+                                        <i class="fas fa-gem"></i>
+                                    </div>
+                                    <div class="prize-name">Bonus Cash</div>
+                                    <div class="prize-value">₹500</div>
+                                </div>
+                                
+                                <div class="prize-card">
+                                    <div class="prize-icon">
+                                        <i class="fas fa-ticket-alt"></i>
+                                    </div>
+                                    <div class="prize-name">Free Spin</div>
+                                    <div class="prize-value">Extra Chance</div>
+                                </div>
+                                
+                                <div class="prize-card">
+                                    <div class="prize-icon">
+                                        <i class="fab fa-bitcoin"></i>
+                                    </div>
+                                    <div class="prize-name">Crypto Bonus</div>
+                                    <div class="prize-value">₹750</div>
+                                </div>
                             </div>
-                            <h3 class="reward-title">First Deposit</h3>
-                            <p class="reward-desc">Get 100% bonus on your first deposit</p>
-                            <button class="reward-btn">Deposit Now</button>
-                        </div>
-                        
-                        <div class="reward-card">
-                            <div class="reward-icon">
-                                <i class="fas fa-user-friends"></i>
+                            
+                            <div class="history-section">
+                                <h2 class="section-title">
+                                    <i class="fas fa-history"></i> Spin History
+                                </h2>
+                                <div class="history-list" id="history-list">
+                                    <!-- History items will be added here dynamically -->
+                                </div>
                             </div>
-                            <h3 class="reward-title">Refer Friends</h3>
-                            <p class="reward-desc">Earn ₹500 for each friend who joins</p>
-                            <button class="reward-btn">Invite Now</button>
-                        </div>
-                        
-                        <div class="reward-card">
-                            <div class="reward-icon">
-                                <i class="fas fa-spinner"></i>
-                            </div>
-                            <h3 class="reward-title">Spin & Win</h3>
-                            <p class="reward-desc">Spin the wheel for amazing prizes</p>
-                            <button class="reward-btn">Spin Now</button>
                         </div>
                     </div>
                 </div>
@@ -1839,35 +2357,62 @@
             <div class="page" id="bonus-page">
                 <div class="bonus-page">
                     <div class="bonus-header">
-                        <h1 class="bonus-title">Available Bonuses</h1>
-                        <p style="opacity: 0.8; margin-top: 10px;">Claim these amazing bonuses to boost your winnings</p>
+                        <h1 class="bonus-title">EXCLUSIVE BONUSES</h1>
+                        <p class="bonus-subtitle">Boost your winnings with these amazing offers</p>
                     </div>
                     
-                    <div class="bonus-card">
-                        <div class="bonus-card-header">
-                            <h3 class="bonus-card-title">Welcome Bonus</h3>
-                            <div class="bonus-card-amount">100% up to ₹10,000</div>
+                    <div class="bonus-grid">
+                        <!-- Daily Bonus Card -->
+                        <div class="bonus-card">
+                            <div class="bonus-card-header">
+                                <h3 class="bonus-card-title">Daily Login Bonus</h3>
+                                <i class="fas fa-calendar-alt bonus-card-icon"></i>
+                            </div>
+                            <div class="bonus-card-amount">₹500 FREE</div>
+                            <p class="bonus-card-desc">Claim your daily reward just for logging in! Available once every 24 hours.</p>
+                            <button class="bonus-card-btn" id="daily-bonus-btn">
+                                <i class="fas fa-gift"></i> Claim Now
+                            </button>
                         </div>
-                        <p class="bonus-card-desc">Get 100% bonus on your first deposit up to ₹10,000. Minimum deposit ₹500.</p>
-                        <button class="bonus-card-btn">Claim Bonus</button>
-                    </div>
-                    
-                    <div class="bonus-card">
-                        <div class="bonus-card-header">
-                            <h3 class="bonus-card-title">Weekly Reload</h3>
-                            <div class="bonus-card-amount">50% up to ₹5,000</div>
+                        
+                        <!-- First Deposit Bonus Card -->
+                        <div class="bonus-card">
+                            <div class="bonus-card-header">
+                                <h3 class="bonus-card-title">First Deposit Bonus</h3>
+                                <i class="fas fa-coins bonus-card-icon"></i>
+                            </div>
+                            <div class="bonus-card-amount">100% UP TO ₹10,000</div>
+                            <p class="bonus-card-desc">Get double your first deposit! Minimum deposit ₹500.</p>
+                            <button class="bonus-card-btn" id="deposit-bonus-btn">
+                                <i class="fas fa-wallet"></i> Deposit Now
+                            </button>
                         </div>
-                        <p class="bonus-card-desc">Get 50% bonus on every deposit made on weekends. Minimum deposit ₹1,000.</p>
-                        <button class="bonus-card-btn">Deposit Now</button>
-                    </div>
-                    
-                    <div class="bonus-card">
-                        <div class="bonus-card-header">
-                            <h3 class="bonus-card-title">Loyalty Bonus</h3>
-                            <div class="bonus-card-amount">₹2,000 Free</div>
+                        
+                        <!-- Referral Bonus Card -->
+                        <div class="bonus-card">
+                            <div class="bonus-card-header">
+                                <h3 class="bonus-card-title">Referral Program</h3>
+                                <i class="fas fa-user-friends bonus-card-icon"></i>
+                            </div>
+                            <div class="bonus-card-amount">₹500 PER FRIEND</div>
+                            <p class="bonus-card-desc">Invite friends and earn ₹500 for each successful referral.</p>
+                            <button class="bonus-card-btn" id="referral-btn">
+                                <i class="fas fa-share-alt"></i> Invite Friends
+                            </button>
                         </div>
-                        <p class="bonus-card-desc">Claim your ₹2,000 loyalty bonus after playing 100 games.</p>
-                        <button class="bonus-card-btn">Claim Now</button>
+                        
+                        <!-- Loyalty Bonus Card -->
+                        <div class="bonus-card">
+                            <div class="bonus-card-header">
+                                <h3 class="bonus-card-title">Loyalty Reward</h3>
+                                <i class="fas fa-crown bonus-card-icon"></i>
+                            </div>
+                            <div class="bonus-card-amount">₹2,000 FREE</div>
+                            <p class="bonus-card-desc">Special bonus for our loyal players. Claim after playing 50 games.</p>
+                            <button class="bonus-card-btn" id="loyalty-btn">
+                                <i class="fas fa-award"></i> Claim Reward
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2170,6 +2715,52 @@
             </div>
         </div>
     </div>
+    
+    <!-- Win Modal for Spin & Win -->
+    <div class="win-modal" id="win-modal">
+        <div class="win-modal-content">
+            <i class="fas fa-trophy modal-icon"></i>
+            <h2 class="modal-title">CONGRATULATIONS!</h2>
+            <p class="prize-announcement">You've won:</p>
+            <div class="prize-amount" id="win-amount">₹1,000</div>
+            <p class="modal-text">Your prize has been credited to your account. Enjoy your winnings!</p>
+            <button class="modal-button" id="close-modal">CONTINUE</button>
+        </div>
+    </div>
+    
+    <!-- Confetti container for Spin & Win -->
+    <div class="confetti-container" id="confetti-container"></div>
+    
+    <!-- Success Modal for Bonus Page -->
+    <div class="bonus-success-modal" id="bonus-success-modal">
+        <div class="bonus-success-content">
+            <i class="fas fa-check-circle bonus-success-icon"></i>
+            <h2 class="bonus-success-title">BONUS CLAIMED!</h2>
+            <p class="bonus-success-message">Congratulations! Your bonus has been added to your account.</p>
+            <div class="bonus-amount" id="bonus-win-amount">+ ₹500</div>
+            <button class="bonus-continue-btn" id="bonus-continue-btn">Continue</button>
+        </div>
+    </div>
+    
+    <!-- Confetti container for Bonus Page -->
+    <div class="bonus-confetti-container" id="bonus-confetti-container"></div>
+    
+    <!-- Audio elements -->
+    <audio id="spin-sound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-slot-machine-spin-1030.mp3" type="audio/mp3">
+    </audio>
+    
+    <audio id="win-sound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-winning-chimes-2015.mp3" type="audio/mp3">
+    </audio>
+    
+    <audio id="applause-sound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-winning-trumpet-2018.mp3" type="audio/mp3">
+    </audio>
+    
+    <audio id="coin-sound" preload="auto">
+        <source src="https://assets.mixkit.co/sfx/preview/mixkit-winning-chimes-2015.mp3" type="audio/mp3">
+    </audio>
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -2483,7 +3074,310 @@
                 const secs = seconds % 60;
                 timerDisplay.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
             }, 1000);
+            
+            // ===================== SPIN & WIN SECTION =====================
+            // Elements
+            const wheel = document.getElementById('wheel');
+            const spinButton = document.getElementById('spin-button');
+            const winModal = document.getElementById('win-modal');
+            const closeModal = document.getElementById('close-modal');
+            const winAmount = document.getElementById('win-amount');
+            const historyList = document.getElementById('history-list');
+            const spinsCount = document.getElementById('spins-count');
+            
+            // Audio elements
+            const spinSound = document.getElementById('spin-sound');
+            const winSound = document.getElementById('win-sound');
+            const applauseSound = document.getElementById('applause-sound');
+            
+            // Prizes
+            const prizes = [
+                { name: "₹1,000 Cash", value: "₹1,000", amount: 1000 },
+                { name: "₹500 Bonus", value: "₹500", amount: 500 },
+                { name: "Free Spin", value: "Extra Chance", amount: 0 },
+                { name: "₹750 Crypto", value: "₹750", amount: 750 },
+                { name: "₹250 Bonus", value: "₹250", amount: 250 },
+                { name: "₹1,500 Jackpot", value: "₹1,500", amount: 1500 },
+                { name: "₹100 Bonus", value: "₹100", amount: 100 },
+                { name: "₹2,000 Mega Win", value: "₹2,000", amount: 2000 }
+            ];
+            
+            // State
+            let spins = 3;
+            let isSpinning = false;
+            
+            // Spin the wheel
+            spinButton.addEventListener('click', function() {
+                if (isSpinning || spins <= 0) return;
+                
+                isSpinning = true;
+                spinButton.disabled = true;
+                
+                // Play spin sound
+                spinSound.currentTime = 0;
+                spinSound.play();
+                
+                // Reduce spins
+                spins--;
+                spinsCount.textContent = spins;
+                
+                // Calculate random rotation (multiple full rotations + prize segment)
+                const fullRotations = 5; // Number of full 360 rotations
+                const segmentAngle = 360 / prizes.length;
+                const prizeIndex = Math.floor(Math.random() * prizes.length);
+                const extraRotation = segmentAngle * prizeIndex;
+                
+                // Total rotation in degrees
+                const rotation = fullRotations * 360 + extraRotation;
+                
+                // Apply rotation
+                wheel.style.transform = `rotate(${rotation}deg)`;
+                
+                // After spin completes
+                setTimeout(() => {
+                    isSpinning = false;
+                    
+                    // Play win sounds
+                    winSound.currentTime = 0;
+                    winSound.play();
+                    applauseSound.currentTime = 0;
+                    applauseSound.play();
+                    
+                    // Show win modal
+                    const prize = prizes[prizeIndex];
+                    winAmount.textContent = prize.value;
+                    winModal.classList.add('active');
+                    
+                    // Add to history
+                    addToHistory(prize);
+                    
+                    // Create confetti
+                    createConfetti();
+                    
+                    // If prize is free spin, add it
+                    if (prize.name === "Free Spin") {
+                        spins++;
+                        spinsCount.textContent = spins;
+                    }
+                    
+                    // Add prize to wallet
+                    if (prize.amount > 0) {
+                        updateWalletBalance(prize.amount);
+                        // Add transaction to history
+                        addTransaction("Spin & Win", prize.amount, true);
+                    }
+                }, 4000);
+            });
+            
+            // Close modal
+            closeModal.addEventListener('click', function() {
+                winModal.classList.remove('active');
+                spinButton.disabled = false;
+            });
+            
+            // Add to history
+            function addToHistory(prize) {
+                const now = new Date();
+                const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                
+                const historyItem = document.createElement('div');
+                historyItem.className = 'history-item';
+                historyItem.innerHTML = `
+                    <div class="history-prize">${prize.name}</div>
+                    <div class="history-time">${timeString}</div>
+                `;
+                
+                // Add to top of history list
+                if (historyList.firstChild) {
+                    historyList.insertBefore(historyItem, historyList.firstChild);
+                } else {
+                    historyList.appendChild(historyItem);
+                }
+            }
+            
+            // Create confetti
+            function createConfetti() {
+                const confettiContainer = document.getElementById('confetti-container');
+                confettiContainer.innerHTML = '';
+                confettiContainer.style.display = 'block';
+                
+                for (let i = 0; i < 150; i++) {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.animationDelay = Math.random() * 5 + 's';
+                    confettiContainer.appendChild(confetti);
+                }
+                
+                setTimeout(() => {
+                    confettiContainer.style.display = 'none';
+                }, 5000);
+            }
+            
+            // Add initial history items
+            addToHistory(prizes[3]);
+            addToHistory(prizes[1]);
+            addToHistory(prizes[5]);
+            
+            // ===================== BONUS SECTION =====================
+            // Elements
+            const dailyBonusBtn = document.getElementById('daily-bonus-btn');
+            const depositBonusBtn = document.getElementById('deposit-bonus-btn');
+            const referralBtn = document.getElementById('referral-btn');
+            const loyaltyBtn = document.getElementById('loyalty-btn');
+            const bonusSuccessModal = document.getElementById('bonus-success-modal');
+            const bonusContinueBtn = document.getElementById('bonus-continue-btn');
+            const bonusWinAmount = document.getElementById('bonus-win-amount');
+            const coinSound = document.getElementById('coin-sound');
+            
+            // Show bonus claimed animation
+            function showBonusClaimed(amount) {
+                // Update the bonus amount in modal
+                bonusWinAmount.textContent = `+ ₹${amount}`;
+                
+                // Show success modal
+                bonusSuccessModal.classList.add('active');
+                
+                // Play coin sound
+                coinSound.currentTime = 0;
+                coinSound.play();
+                
+                // Update wallet balance
+                updateWalletBalance(amount);
+                
+                // Add transaction to history
+                addTransaction("Bonus Claimed", amount, true);
+            }
+            
+            // Event Listeners
+            dailyBonusBtn.addEventListener('click', function() {
+                // Show loading state
+                const originalText = dailyBonusBtn.innerHTML;
+                dailyBonusBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+                dailyBonusBtn.disabled = true;
+                
+                // Simulate API call
+                setTimeout(() => {
+                    // Reset button
+                    dailyBonusBtn.innerHTML = originalText;
+                    dailyBonusBtn.disabled = false;
+                    
+                    // Show bonus claimed animation
+                    showBonusClaimed(500);
+                }, 1500);
+            });
+            
+            depositBonusBtn.addEventListener('click', function() {
+                // Show loading state
+                const originalText = depositBonusBtn.innerHTML;
+                depositBonusBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Redirecting...';
+                
+                // Simulate redirect to deposit page
+                setTimeout(() => {
+                    alert('Redirecting to deposit page...');
+                    depositBonusBtn.innerHTML = originalText;
+                }, 1000);
+            });
+            
+            referralBtn.addEventListener('click', function() {
+                // Show loading state
+                const originalText = referralBtn.innerHTML;
+                referralBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
+                
+                // Simulate referral program opening
+                setTimeout(() => {
+                    alert('Referral program opened. Share your referral code with friends!');
+                    referralBtn.innerHTML = originalText;
+                }, 1000);
+            });
+            
+            loyaltyBtn.addEventListener('click', function() {
+                // Show loading state
+                const originalText = loyaltyBtn.innerHTML;
+                loyaltyBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Claiming...';
+                loyaltyBtn.disabled = true;
+                
+                // Simulate API call
+                setTimeout(() => {
+                    // Reset button
+                    loyaltyBtn.innerHTML = originalText;
+                    loyaltyBtn.disabled = false;
+                    
+                    // Show bonus claimed animation
+                    showBonusClaimed(2000);
+                }, 1500);
+            });
+            
+            bonusContinueBtn.addEventListener('click', function() {
+                bonusSuccessModal.classList.remove('active');
+            });
+            
+            // ===================== WALLET INTEGRATION =====================
+            // Update wallet balance
+            function updateWalletBalance(amount) {
+                const walletBalance = document.querySelector('.wallet-balance span');
+                if (walletBalance) {
+                    const currentBalance = parseInt(walletBalance.textContent.replace('₹', '').replace(',', ''));
+                    const newBalance = currentBalance + amount;
+                    walletBalance.textContent = `₹${newBalance.toLocaleString()}`;
+                }
+            }
+            
+            // Add transaction to history
+            function addTransaction(description, amount, isDeposit) {
+                const transactionHistory = document.querySelector('.transaction-history');
+                const now = new Date();
+                const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                const dateString = now.toLocaleDateString();
+                
+                const transactionItem = document.createElement('div');
+                transactionItem.className = `transaction-item ${isDeposit ? 'deposit' : 'withdraw'}`;
+                
+                const transactionId = `TXN${Math.floor(100000 + Math.random() * 900000)}`;
+                
+                transactionItem.innerHTML = `
+                    <div class="transaction-method">
+                        <div class="method-icon" style="background: ${isDeposit ? 'rgba(0, 230, 118, 0.2)' : 'rgba(255, 61, 113, 0.2)'}">
+                            <i class="fas ${isDeposit ? 'fa-plus-circle' : 'fa-minus-circle'}" style="color: ${isDeposit ? '#00e676' : '#ff3d71'}"></i>
+                        </div>
+                        <div>${description}</div>
+                    </div>
+                    <div class="transaction-amount ${isDeposit ? 'deposit' : 'withdraw'}">${isDeposit ? '+' : '-'}₹${amount}</div>
+                    <div class="transaction-status status-completed">Completed</div>
+                    <div class="transaction-details">
+                        <div class="transaction-date">
+                            <i class="far fa-calendar"></i> ${dateString}, ${timeString}
+                        </div>
+                        <div class="transaction-id">
+                            <i class="fas fa-hashtag"></i> ${transactionId}
+                        </div>
+                    </div>
+                `;
+                
+                // Add to top of transaction history
+                if (transactionHistory.firstChild) {
+                    transactionHistory.insertBefore(transactionItem, transactionHistory.firstChild);
+                } else {
+                    transactionHistory.appendChild(transactionItem);
+                }
+            }
         });
+        
+        // Add confetti animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fall {
+                0% {
+                    transform: translateY(0) rotate(0deg);
+                    opacity: 1;
+                }
+                100% {
+                    transform: translateY(100vh) rotate(720deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
