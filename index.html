@@ -3204,6 +3204,816 @@
     }
 }
 
+ /* Aviator */
+
+  .history-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 6px 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+        }
+
+        /* Game Canvas */
+        .game-canvas-container {
+            position: relative;
+            height: 220px;
+            background: linear-gradient(to bottom, #4facfe, #1e3a8a);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        #game-canvas {
+            width: 100%;
+            height: 100%;
+        }
+
+        .multiplier-display {
+            position: absolute;
+            top: 10px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 32px;
+            font-weight: 800;
+            color: white;
+            text-shadow: 0 3px 10px rgba(0,0,0,0.5);
+            z-index: 10;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* Status Indicator */
+        .status-indicator {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            z-index: 20;
+        }
+
+        .status-indicator.ready {
+            background-color: var(--success);
+            box-shadow: 0 0 10px var(--success);
+        }
+
+        .status-indicator.betting {
+            background-color: var(--accent);
+            box-shadow: 0 0 10px var(--accent);
+        }
+
+        .status-indicator.ended {
+            background-color: var(--danger);
+            box-shadow: 0 0 10px var(--danger);
+        }
+
+        /* Betting Panels */
+        .betting-panels {
+            display: flex;
+            flex-direction: row; /* Changed to row for side-by-side on mobile */
+            gap: 8px; /* Reduced gap for tighter fit */
+            margin-bottom: 0;
+            flex-wrap: nowrap; /* Prevent wrapping to keep them side-by-side */
+            overflow-x: auto; /* Allow horizontal scrolling if content overflows */
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+            padding-bottom: 5px; /* Prevent scrollbar from obscuring content */
+        }
+
+        .bet-panel {
+            flex: 1 0 48%; /* Allow panels to grow/shrink, but maintain a base width */
+            min-width: 160px; /* Minimum width for each panel to prevent squishing */
+            background: var(--card);
+            border-radius: 15px;
+            padding: 10px; /* Reduced padding */
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px; /* Reduced margin */
+        }
+
+        .panel-title {
+            font-size: 14px; /* Smaller font size */
+            display: flex;
+            align-items: center;
+            gap: 5px; /* Reduced gap */
+        }
+
+        .bet-amount-control {
+            display: flex;
+            flex-direction: column;
+            gap: 8px; /* Reduced gap */
+            margin-bottom: 8px; /* Reduced margin */
+        }
+
+        .amount-input-container {
+            display: flex;
+            align-items: center;
+            margin: 5px 0; /* Reduced margin */
+        }
+
+        .amount-btn {
+            width: 32px; /* Smaller size */
+            height: 32px; /* Smaller size */
+            border-radius: 50%;
+            background: var(--accent);
+            color: white;
+            border: none;
+            font-size: 14px; /* Smaller font size */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .amount-input {
+            flex: 1;
+            margin: 0 6px; /* Reduced margin */
+            padding: 7px 8px; /* Reduced padding */
+            border-radius: 8px; /* Smaller border radius */
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.05);
+            color: white;
+            font-size: 13px; /* Smaller font size */
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .auto-cashout {
+            margin: 8px 0; /* Reduced margin */
+        }
+
+        .auto-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px; /* Reduced margin */
+            font-size: 12px; /* Smaller font size */
+        }
+
+        .auto-input {
+            width: 100%;
+            padding: 7px 8px; /* Reduced padding */
+            border-radius: 8px; /* Smaller border radius */
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.05);
+            color: white;
+            font-size: 12px; /* Smaller font size */
+            text-align: center;
+        }
+
+        .bet-actions {
+            display: grid;
+            grid-template-columns: 1fr; /* Stack buttons vertically within panel */
+            gap: 6px; /* Reduced gap */
+            margin-top: 8px; /* Reduced margin */
+        }
+
+        .bet-btn {
+            padding: 10px; /* Reduced padding */
+            border-radius: 8px; /* Smaller border radius */
+            border: none;
+            font-size: 12px; /* Smaller font size */
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 4px; /* Reduced gap */
+        }
+
+        .cash-out {
+            display: none;
+        }
+
+        .cash-out.active {
+            display: flex;
+        }
+
+        .bet-info {
+            background: rgba(0,0,0,0.2);
+            padding: 5px; /* Reduced padding */
+            border-radius: 8px; /* Smaller border radius */
+            margin-top: 8px; /* Reduced margin */
+            font-size: 11px; /* Smaller font size */
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .bet-info-item {
+            flex: 1; /* Distribute space evenly */
+            text-align: center; /* Center text */
+        }
+
+        .bet-info-label {
+            font-size: 9px; /* Smaller font size */
+        }
+
+        .bet-info-value {
+            font-size: 12px; /* Smaller font size */
+        }
+
+        /* Live Players Panel */
+        .live-players {
+            background: var(--card);
+            border-radius: 15px;
+            padding: 10px; /* Reduced padding */
+            margin-bottom: 10px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .section-title {
+            font-size: 15px; /* Smaller font size */
+            font-weight: 700;
+            margin-bottom: 8px; /* Reduced margin */
+            display: flex;
+            align-items: center;
+            gap: 5px; /* Reduced gap */
+            color: var(--gold);
+        }
+
+        .players-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); /* Adjusted min width for more columns */
+            gap: 6px; /* Reduced gap */
+        }
+
+        .player-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 6px; /* Smaller border radius */
+            padding: 6px; /* Reduced padding */
+            display: flex;
+            align-items: center;
+            gap: 6px; /* Reduced gap */
+        }
+
+        .player-avatar {
+            width: 24px; /* Smaller size */
+            height: 24px; /* Smaller size */
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff9e00, #ff6b00);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 600;
+            font-size: 10px; /* Smaller font size */
+        }
+
+        .player-name {
+            font-weight: 600;
+            margin-bottom: 1px; /* Reduced margin */
+            font-size: 10px; /* Smaller font size */
+        }
+
+        .player-bet {
+            font-size: 9px; /* Smaller font size */
+            opacity: 0.8;
+        }
+
+        .player-win {
+            font-weight: 700;
+            color: var(--success);
+            font-size: 9px; /* Smaller font size */
+        }
+
+        .player-loss {
+            font-weight: 700;
+            color: var(--danger);
+            font-size: 9px; /* Smaller font size */
+        }
+
+        /* Game Instructions */
+        .instructions {
+            background: var(--card);
+            border-radius: 15px;
+            padding: 10px; /* Reduced padding */
+            margin-top: 0;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .instructions h3 {
+            margin-bottom: 5px; /* Reduced margin */
+            display: flex;
+            align-items: center;
+            gap: 5px; /* Reduced gap */
+            color: var(--accent);
+            font-size: 14px; /* Smaller font size */
+        }
+
+        .instructions ul {
+            padding-left: 15px; /* Reduced padding */
+        }
+
+        .instructions li {
+            margin-bottom: 3px; /* Reduced margin */
+            font-size: 11px; /* Smaller font size */
+            opacity: 0.8;
+            line-height: 1.3; /* Adjusted line height */
+        }
+
+        /* History Modal */
+        .history-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .history-content {
+            background: var(--secondary);
+            border-radius: 20px;
+            padding: 15px;
+            width: 95%;
+            max-width: 350px;
+            box-shadow: var(--shadow);
+            position: relative;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .history-title {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .close-history {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 22px;
+            cursor: pointer;
+        }
+
+        .history-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 10px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 8px;
+            font-size: 13px;
+        }
+
+        .history-multiplier {
+            font-weight: 700;
+        }
+
+        .history-multiplier.win {
+            color: var(--success);
+        }
+
+        .history-multiplier.loss {
+            color: var(--danger);
+        }
+
+        .history-time {
+            opacity: 0.7;
+            font-size: 12px;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes confetti-fall {
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+
+        /* Clouds */
+        .cloud {
+            position: absolute;
+            background: var(--cloud);
+            border-radius: 50%;
+            opacity: 0.7;
+            z-index: 5;
+        }
+
+        /* Confetti */
+        .confetti-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+            display: none;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: var(--gold);
+            opacity: 0;
+            animation: confetti-fall 5s ease-in-out forwards;
+        }
+
+        .confetti:nth-child(2n) {
+            background: var(--success);
+        }
+
+        .confetti:nth-child(3n) {
+            background: var(--accent);
+        }
+
+        /* Timer */
+        .next-round-timer {
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--gold);
+            z-index: 10;
+            display: none;
+        }
+
+        /* Volume Control */
+        .volume-control {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            z-index: 10;
+        }
+
+        .volume-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: white;
+            font-size: 14px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        /* Bet Outcome Popup */
+        .bet-outcome {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.95);
+            border-radius: 15px;
+            padding: 20px;
+            z-index: 2000;
+            text-align: center;
+            display: none;
+            box-shadow: 0 0 40px rgba(255, 107, 0, 0.8);
+            border: 2px solid var(--accent);
+            width: 90%;
+            max-width: 300px;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .outcome-title {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .win-title {
+            color: var(--success);
+            text-shadow: 0 0 15px rgba(0, 230, 118, 0.7);
+        }
+
+        .loss-title {
+            color: var(--danger);
+            text-shadow: 0 0 15px rgba(255, 61, 113, 0.7);
+        }
+
+        .outcome-details {
+            font-size: 16px;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .outcome-amount {
+            font-weight: 700;
+            font-size: 20px;
+            color: var(--gold);
+            margin: 6px 0;
+        }
+
+        .close-outcome {
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 10px 20px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 14px;
+            transition: var(--transition);
+            width: 100%;
+        }
+
+        /* Explosion Particles */
+        .explosion {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 15;
+        }
+
+        /* Responsive adjustments for larger screens */
+        @media (min-width: 768px) {
+            body {
+                padding: 20px;
+                justify-content: flex-start;
+            }
+
+            .game-container {
+                max-width: 1200px;
+                gap: 12px;
+                padding-bottom: 10px;
+            }
+
+            .game-header {
+                flex-direction: row;
+                justify-content: space-between;
+                gap: 12px;
+                padding: 12px;
+            }
+
+            .header-top {
+                width: 100%;
+            }
+
+            .game-logo span {
+                font-size: 18px;
+            }
+
+            .wallet-balance {
+                padding: 8px 15px;
+                font-size: 14px;
+            }
+
+
+ .history-btn {
+                padding: 8px 15px;
+                font-size: 14px;
+            }
+
+            .game-canvas-container {
+                height: 350px;
+            }
+
+            .multiplier-display {
+                font-size: 48px;
+                top: 15px;
+            }
+
+            .status-indicator {
+                top: 15px;
+                right: 15px;
+                width: 12px;
+                height: 12px;
+            }
+
+            .betting-panels {
+                flex-direction: row; /* Restore horizontal layout */
+                gap: 20px; /* Restore gap */
+                margin-bottom: 10px;
+                flex-wrap: nowrap; /* Ensure no wrapping */
+                overflow-x: visible; /* No scrolling needed */
+                padding-bottom: 0;
+            }
+
+            .bet-panel {
+                flex: 1; /* Distribute space evenly */
+                min-width: auto; /* Remove min-width constraint */
+                padding: 15px;
+            }
+
+            .panel-title {
+                font-size: 16px;
+                gap: 8px;
+            }
+
+            .bet-amount-control {
+                gap: 12px;
+                margin-bottom: 12px;
+            }
+
+            .amount-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+
+            .amount-input {
+                padding: 10px 12px;
+                font-size: 16px;
+            }
+
+            .auto-cashout {
+                margin: 15px 0;
+            }
+
+            .auto-label {
+                margin-bottom: 8px;
+                font-size: 14px;
+            }
+
+            .auto-input {
+                padding: 10px 12px;
+                font-size: 14px;
+            }
+
+            .bet-actions {
+                grid-template-columns: 1fr 1fr; /* Restore two columns for buttons */
+                gap: 10px;
+                margin-top: 12px;
+            }
+
+            .bet-btn {
+                padding: 14px;
+                font-size: 14px;
+                gap: 6px;
+            }
+
+            .bet-info {
+                padding: 8px;
+                margin-top: 12px;
+                font-size: 13px;
+            }
+
+            .bet-info-label {
+                font-size: 11px;
+            }
+
+            .bet-info-value {
+                font-size: 14px;
+            }
+
+            .live-players {
+                padding: 15px;
+            }
+
+            .section-title {
+                font-size: 18px;
+                margin-bottom: 12px;
+                gap: 8px;
+            }
+
+            .players-list {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 10px;
+            }
+
+            .player-card {
+                padding: 10px;
+                gap: 10px;
+            }
+
+            .player-avatar {
+                width: 32px;
+                height: 32px;
+                font-size: 14px;
+            }
+
+            .player-name {
+                font-size: 12px;
+            }
+
+            .player-bet, .player-win, .player-loss {
+                font-size: 11px;
+            }
+
+            .instructions {
+                padding: 15px;
+                margin-top: 10px;
+            }
+
+            .instructions h3 {
+                margin-bottom: 8px;
+                gap: 8px;
+                font-size: 16px;
+            }
+
+            .instructions ul {
+                padding-left: 20px;
+            }
+
+            .instructions li {
+                margin-bottom: 6px;
+                font-size: 13px;
+                line-height: 1.5;
+            }
+
+            .history-content {
+                padding: 20px;
+                max-width: 400px;
+            }
+
+            .history-title {
+                font-size: 20px;
+            }
+
+            .close-history {
+                font-size: 24px;
+            }
+
+            .history-item {
+                padding: 10px 12px;
+                font-size: 14px;
+            }
+
+            .history-time {
+                font-size: 13px;
+            }
+
+            .bet-outcome {
+                padding: 25px;
+                max-width: 350px;
+            }
+
+            .outcome-title {
+                font-size: 28px;
+                margin-bottom: 15px;
+            }
+
+            .outcome-details {
+                font-size: 18px;
+                margin-bottom: 20px;
+            }
+
+            .outcome-amount {
+                font-size: 22px;
+                margin: 8px 0;
+            }
+
+            .close-outcome {
+                padding: 12px 25px;
+                font-size: 15px;
+            }
+
+            .volume-control {
+                top: 10px;
+                left: 10px;
+            }
+
+            .volume-btn {
+                width: 36px;
+                height: 36px;
+                font-size: 16px;
+            }
+
     </style>
 </head>
 <body>
@@ -3390,13 +4200,15 @@
                         </div>
                     </div>
 
-                    <!-- Aviator Game -->
+                                       <!-- Aviator Game -->
+
                     <div class="game-card" data-game="aviator-page">
                         <img src="https://i.ibb.co/PZP6YRzY/Chat-GPT-Image-Jun-30-2025-10-24-44-PM.png" class="game-bg" alt="Aviator Game">
                         <div class="game-content">
                             <h3 class="game-title">Aviator</h3>
                             <p class="game-desc">Cash out before the plane flies away</p>
-                            <button class="play-btn" data-game="aviator-page">
+                            <!-- Changed data-game to data-redirect-url and added a specific ID -->
+                            <button class="play-btn" id="play-aviator-btn" data-redirect-url="aviator.html">
                                 <i class="fas fa-play"></i> Play Now
                             </button>
                         </div>
@@ -3561,26 +4373,7 @@
                 </div>
             </div>
 
-            <!-- Placeholder for other game pages -->
-            <div class="page game-page" id="aviator-page">
-                <div class="game-header">
-                    <button class="game-back" id="aviator-back-btn">
-                        <i class="fas fa-arrow-left"></i>
-                    </button>
-                    <div class="game-logo">
-                        <i class="fas fa-plane" style="color: var(--accent); font-size: 24px;"></i>
-                        <span>AVIATOR</span>
-                    </div>
-                    <div class="wallet-balance">
-                        <i class="fas fa-wallet"></i>
-                        <span id="aviator-wallet-balance">₹24,500</span>
-                    </div>
-                </div>
-                <div style="padding: 20px; text-align: center;">
-                    <h2>Aviator Game Coming Soon!</h2>
-                    <p>Stay tuned for an exciting flight experience.</p>
-                </div>
-            </div>
+          <!-- Roulette Page -->
 
             <div class="page game-page" id="roulette-page">
                 <div class="game-header">
@@ -4453,7 +5246,7 @@
             <div class="payment-details" id="upi-details">
                 <div class="payment-info">
                     <div class="payment-label">Send to UPI ID</div>
-                    <div class="payment-value" id="upi-id-display">eliteclub@axisbank</div>
+                    <div class="payment-value" id="upi-id-display">9565357601@rapl</div>
 
                     <div class="action-buttons">
                         <button class="action-btn copy-btn" data-copy-target="upi-id-display">
@@ -4466,7 +5259,8 @@
                 </div>
 
                 <div class="qr-container">
-                    <div class="qr-placeholder">UPI QR Code</div>
+                    <img src="https://i.ibb.co/wrJNW3wc/Whats-App-Image-2025-07-07-at-10-01-58-AM.jpg" alt="Scan to Pay via UPI" style="width: 100%; height: 100%; object-fit: contain;">
+
                 </div>
 
                 <div class="timer">
@@ -4489,7 +5283,7 @@
             <div class="payment-details" id="crypto-details">
                 <div class="payment-info">
                     <div class="payment-label">Send Crypto to Address</div>
-                    <div class="payment-value" id="crypto-address-display">0x4c5F8eD7f5b3f5D3d8c9B4aB6C7d8e9F0a1B2C3D4</div>
+                    <div class="payment-value" id="crypto-address-display">0xc976Eb515d98511f6A7D86fF7d62813E90E27915</div>
 
                     <div class="action-buttons">
                         <button class="action-btn copy-btn" data-copy-target="crypto-address-display">
@@ -4502,7 +5296,8 @@
                 </div>
 
                 <div class="qr-container">
-                    <div class="qr-placeholder">Crypto Wallet QR Code</div>
+                   <img src="https://i.ibb.co/RrTnFF6/Whats-App-Image-2025-07-07-at-10-01-59-AM.jpg" alt="Scan to Pay via UPI" style="width: 100%; height: 100%; object-fit: contain;">
+
                 </div>
 
                 <div class="payment-info">
@@ -4727,7 +5522,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Global State for Wallet Balance
+                       // Global State for Wallet Balance
             let userBalance = 24500; // Initial balance
 
             // Function to update all balance displays
@@ -4742,7 +5537,42 @@
                     const el = document.getElementById(id);
                     if (el) el.textContent = formattedBalance;
                 });
+
+                // --- NEW: Store balance in localStorage ---
+                localStorage.setItem('userBalance', userBalance);
             }
+
+            // --- NEW: Initialize userBalance from localStorage on page load ---
+            // This ensures that if the user returns from aviator.html, the balance is updated.
+            const storedBalance = localStorage.getItem('userBalance');
+            if (storedBalance !== null) {
+                userBalance = parseInt(storedBalance);
+            }
+            // Call updateAllBalances immediately after potentially loading from localStorage
+            updateAllBalances();
+
+       // New Event Listener ============================================
+
+                   function setupNavigationListeners() {
+                // ... existing code ...
+
+                // --- NEW: Event listener for Aviator game card redirection ---
+                const playAviatorBtn = document.getElementById('play-aviator-btn');
+                if (playAviatorBtn) {
+                    playAviatorBtn.addEventListener('click', function(e) {
+                        e.stopPropagation(); // Prevent game-card click listener from firing
+                        const redirectUrl = this.getAttribute('data-redirect-url');
+                        if (redirectUrl) {
+                            // Store current balance before redirecting
+                            localStorage.setItem('userBalance', userBalance);
+                            window.location.href = redirectUrl;
+                        }
+                    });
+                }
+
+                // ... rest of existing code ...
+            }
+
 
             // Function to add a transaction to history
             function addTransaction(description, amount, isDeposit) {
@@ -5724,7 +6554,9 @@
 
             // Show home page by default after all initializations
             showPage('home-page');
+
         });
+
     </script>
 </body>
 </html>
