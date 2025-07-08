@@ -4746,8 +4746,8 @@
                                         </div>
                                     </div>
                                     <div class="user-info">
-                                        <h2>Rajesh Kumar</h2>
-                                        <p>rajesh.kumar@example.com | +91 9876543210</p>
+                                        <h2 id="user-name">Loading...</h2>
+<p><span id="user-email">Loading...</span> | <span id="user-phone">+91 ---</span></p>
                                         <div class="vip-badge">
                                             <i class="fas fa-crown"></i>
                                             VIP Member
@@ -6615,6 +6615,28 @@
 
   // Optional: You can add onAuthStateChanged() to auto show dashboard
 </script>
+    
+    <script type="module">
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+
+  const auth = getAuth();
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      // ✅ Fetch and display email
+      const email = user.email;
+      const name = user.displayName || 'Elite User';
+
+      document.getElementById('user-email').textContent = email;
+      document.getElementById('user-name').textContent = name;
+
+      // Optional: phone number (if available)
+      const phone = user.phoneNumber || "+91 ---";
+      document.getElementById('user-phone').textContent = phone;
+    }
+  });
+</script>
+
 
 </body>
 </html>
