@@ -6559,9 +6559,14 @@
         });
 
     </script>
-    <script type="module">
+   <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
-  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+  import {
+    getAuth,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    onAuthStateChanged
+  } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyCLJ9Tgn0t_zvb3tJ62zr31fg8C2ZpYqoE",
@@ -6576,33 +6581,39 @@
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
 
-  // SIGNUP
-  document.getElementById('signup-form').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const email = document.getElementById('signup-email').value;
-    const password = document.getElementById('signup-password').value;
+  // Replace IDs with your real form/input IDs
+  const loginForm = document.querySelector("#login-form");
+  const signupForm = document.querySelector("#signup-form");
 
-    try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      alert('Account created: ' + userCredential.user.email);
-    } catch (error) {
-      alert('Signup error: ' + error.message);
-    }
-  });
+  if (signupForm) {
+    signupForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("signup-email").value;
+      const password = document.getElementById("signup-password").value;
+      try {
+        const userCred = await createUserWithEmailAndPassword(auth, email, password);
+        alert("Signup successful: " + userCred.user.email);
+      } catch (error) {
+        alert("Signup error: " + error.message);
+      }
+    });
+  }
 
-  // LOGIN
-  document.getElementById('login-form').addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const email = document.getElementById('login-email').value;
-    const password = document.getElementById('login-password').value;
+  if (loginForm) {
+    loginForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("login-email").value;
+      const password = document.getElementById("login-password").value;
+      try {
+        const userCred = await signInWithEmailAndPassword(auth, email, password);
+        alert("Login successful: " + userCred.user.email);
+      } catch (error) {
+        alert("Login error: " + error.message);
+      }
+    });
+  }
 
-    try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      alert('Login successful: ' + userCredential.user.email);
-    } catch (error) {
-      alert('Login error: ' + error.message);
-    }
-  });
+  // Optional: You can add onAuthStateChanged() to auto show dashboard
 </script>
 
 </body>
