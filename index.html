@@ -6558,62 +6558,117 @@
         });
 
     </script>
+    
    <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
-  import {
-    getAuth,
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-    onAuthStateChanged
-  } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+    import {
+      getAuth,
+      createUserWithEmailAndPassword,
+      signInWithEmailAndPassword,
+      onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+    import {
+      getFirestore,
+      doc,
+      setDoc,
+      getDoc
+    } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyCLJ9Tgn0t_zvb3tJ62zr31fg8C2ZpYqoE",
-    authDomain: "club-5a69f.firebaseapp.com",
-    projectId: "club-5a69f",
-    storageBucket: "club-5a69f.appspot.com",
-    messagingSenderId: "694994719528",
-    appId: "1:694994719528:web:1f035c0154a30e5cebb61d",
-    measurementId: "G-MDDHYT6S7C"
-  };
+    const firebaseConfig = {
+      apiKey: "AIzaSyCLJ9Tgn0t_zvb3tJ62zr31fg8C2ZpYqoE",
+      authDomain: "club-5a69f.firebaseapp.com",
+      projectId: "club-5a69f",
+      storageBucket: "club-5a69f.appspot.com",
+      messagingSenderId: "694994719528",
+      appId: "1:694994719528:web:1f035c0154a30e5cebb61d",
+      measurementId: "G-MDDHYT6S7C"
+    };
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
 
-  // Replace IDs with your real form/input IDs
-  const loginForm = document.querySelector("#login-form");
-  const signupForm = document.querySelector("#signup-form");
-
-  if (signupForm) {
-    signupForm.addEventListener("submit", async (e) => {
+    document.getElementById('signup-form').addEventListener('submit', async function(e) {
       e.preventDefault();
-      const email = document.getElementById("signup-email").value;
-      const password = document.getElementById("signup-password").value;
+      const name = document.getElementById('signup-name').value;
+      const email = document.getElementById('signup-email').value;
+      const mobile = document.getElementById('signup-mobile').value;
+      const password = document.getElementById('signup-password').value;
+      const confirm = document.getElementById('signup-confirm').value;
+      const submitBtn = document.querySelector('#signup-form .btn');
+      const originalText = submitBtn.innerHTML;
+
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating...';
+
+      if (password !== confirm) {
+        alert("Passwords do not match");
+        submitBtn.innerHTML = originalText;
+        return;
+      }
+
       try {
-        const userCred = await createUserWithEmailAndPassword(auth, email, password);
-        alert("Signup successful: " + userCred.user.email);
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const uid = userCredential.user.uid;
+
+        await setDoc(doc(db, "users", uid), {
+          name: name,
+          email: email,
+          mobile: mobile
+        });
+
+        alert("Account created successfully! Please login.");
+        document.querySelector(".auth-tab[tab-target='#login-tab']").click();
+
       } catch (error) {
-        alert("Signup error: " + error.message);
+        alert("Signup failed: " + error.message);
+      }
+
+      submitBtn.innerHTML = originalText;
+    });
+
+    document.getElementById('login-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const email = document.getElementById('login-email').value;
+      const password = document.getElementById('login-password').value;
+      const submitBtn = document.querySelector('#login-form .btn');
+      const originalText = submitBtn.innerHTML;
+
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+
+      try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+
+        document.getElementById('auth-container').style.display = 'none';
+        document.getElementById('app-container').style.display = 'block';
+        showPage('home-page');
+        alert('Login successful!');
+        updateAllBalances();
+
+        const snap = await getDoc(doc(db, 'users', userCredential.user.uid));
+        if (snap.exists()) {
+          const data = snap.data();
+          document.getElementById('profile-name').innerText = data.name;
+          document.getElementById('profile-info').innerText = `${data.email} | +91 ${data.mobile}`;
+        }
+
+      } catch (err) {
+        alert('Login failed: ' + err.message);
+      }
+
+      submitBtn.innerHTML = originalText;
+    });
+
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const snap = await getDoc(doc(db, 'users', user.uid));
+        if (snap.exists()) {
+          const data = snap.data();
+          document.getElementById('profile-name').innerText = data.name;
+          document.getElementById('profile-info').innerText = `${data.email} | +91 ${data.mobile}`;
+        }
       }
     });
-  }
-
-  if (loginForm) {
-    loginForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const email = document.getElementById("login-email").value;
-      const password = document.getElementById("login-password").value;
-      try {
-        const userCred = await signInWithEmailAndPassword(auth, email, password);
-        alert("Login successful: " + userCred.user.email);
-      } catch (error) {
-        alert("Login error: " + error.message);
-      }
-    });
-  }
-
-  // Optional: You can add onAuthStateChanged() to auto show dashboard
-</script>
+  </script>
     
     <script type="module">
   import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
@@ -6633,42 +6688,7 @@
       const phone = user.phoneNumber || "+91 ---";
       document.getElementById('user-phone').textContent = phone;
     }
-  });
-
-        //======================================
-        import { signInWithEmailAndPassword, getAuth } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
-
-const auth = getAuth();
-
-document.getElementById('login-form').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  const email = document.getElementById('login-email').value;
-  const password = document.getElementById('login-password').value;
-  const submitBtn = document.querySelector('#login-form .btn');
-  const originalText = submitBtn.innerHTML;
-  submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
-
-  try {
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    
-    // ✅ Show main app
-    document.getElementById('auth-container').style.display = 'none';
-    document.getElementById('app-container').style.display = 'block';
-    submitBtn.innerHTML = originalText;
-
-    // ✅ Navigate to home page
-    showPage('home-page');
-    alert('Login successful! Welcome to Elite Club.');
-
-    // Optional: Call user-related initializations here
-    updateAllBalances();
-    
-  } catch (err) {
-    alert('Login failed: ' + err.message);
-    submitBtn.innerHTML = originalText;
-  }
-});
-
+  })
 </script>
 
 
