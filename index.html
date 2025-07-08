@@ -6538,13 +6538,19 @@
     </script>
     
   <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
-import {
+ import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+  import {
     getAuth,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+  } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+  import { 
+    getFirestore,
+    doc,
+    setDoc,
+    getDoc
+  } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyCLJ9Tgn0t_zvb3tJ62zr31fg8C2ZpYqoE",
@@ -6558,8 +6564,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-      
-      const db = getFirestore(app);
+const db = getFirestore(app);
 
 // Handle signup
 const signupForm = document.querySelector("#signup-form");
@@ -6577,22 +6582,24 @@ if (signupForm) {
 
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-const user = userCredential.user;
-
-// Store additional user data in Firestore
-const userData = {
-  name: name,
-  email: email,
-  phone: mobile,
-  createdAt: new Date().toISOString()
-};
-
-await setDoc(doc(db, "users", user.uid), userData);
-
-// Also store in localStorage
-localStorage.setItem('userProfile', JSON.stringify(userData));
+            const user = userCredential.user;
             
-            alert("Account created successfully! Please login to continue.");
+            // Store additional user data
+            const userData = {
+                name: name,
+                email: email,
+                phone: mobile,
+                // Add other fields as needed
+                createdAt: new Date().toISOString()
+            };
+            
+            
+           // I added this Line
+            await setDoc(doc(db, "users", user.uid), userData);
+            
+            // Store in localStorage (simple solution)
+            localStorage.setItem('userProfile', JSON.stringify(userData));
+            
             document.querySelector('.auth-tab[data-tab="login"]').click();
         } catch (error) {
             alert("Signup error: " + error.message);
@@ -6677,6 +6684,20 @@ function validateEmail(email) {
     return re.test(email);
 }
       // Handle profile updates
+  //function saveProfileUpdates() {
+   // const userData = {
+    //    name: document.getElementById('account-name').value,
+    //    email: document.getElementById('account-email').value,
+     //   phone: document.getElementById('account-phone').value,
+     //   dob: document.getElementById('account-dob').value,
+     //   address: document.getElementById('account-address').value,
+     //   state: document.getElementById('account-state').value 
+     // };
+    
+    //  localStorage.setItem('userProfile', JSON.stringify(userData));
+     // alert('Profile updated successfully!');
+// }
+
 async function saveProfileUpdates() {
   const user = auth.currentUser;
   if (!user) return;
@@ -6701,11 +6722,24 @@ async function saveProfileUpdates() {
     alert('Error saving profile. Please try again.');
   }
 }
-      
+
 // Add event listener to save button
 document.querySelector('#profile-section .btn-primary')?.addEventListener('click', saveProfileUpdates);
       // Account Page on Load
-     async function initializeAccountPage() {
+     // function initializeAccountPage() {
+   // const userData = JSON.parse(localStorage.getItem('userProfile')) || {};
+    
+    // if (userData) {
+    //    document.getElementById('account-name').value = userData.name || '';
+    //    document.getElementById('account-email').value = userData.email || '';
+    //    document.getElementById('account-phone').value = userData.phone || '';
+    //    document.getElementById('account-dob').value = userData.dob || '';
+    //    document.getElementById('account-address').value = userData.address || '';
+    //    document.getElementById('account-state').value = userData.state || '';
+   // }
+// }
+
+async function initializeAccountPage() {
   const user = auth.currentUser;
   if (!user) return;
   
@@ -6759,23 +6793,11 @@ document.querySelector('#profile-section .btn-primary')?.addEventListener('click
     }
   }
 }
+
+//====================================================
+
 // Call this when account page is shown
 document.querySelector('.nav-item[data-page="account-page"]')?.addEventListener('click', initializeAccountPage);
-  // FireStore
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
-  import {
-    getAuth,
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-    onAuthStateChanged
-  } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
-  import { 
-    getFirestore,
-    doc,
-    setDoc,
-    getDoc
-  } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
-
       
 </script>
     
