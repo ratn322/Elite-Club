@@ -6611,25 +6611,20 @@ if (loginForm) {
         // Basic validation
         const email = document.getElementById("login-email").value;
         const password = document.getElementById("login-password").value;
-        
-        // Clear previous errors
-        document.getElementById("login-email-error").style.display = "none";
-        document.getElementById("login-password-error").style.display = "none";
-
-        // Email validation (move this inside the handler if scope is an issue)
-        const validateEmail = (email) => {
-            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return re.test(email);
-        };
-
         let isValid = true;
+
         if (!validateEmail(email)) {
             document.getElementById("login-email-error").style.display = "block";
             isValid = false;
+        } else {
+            document.getElementById("login-email-error").style.display = "none";
         }
+
         if (password.length < 8) {
             document.getElementById("login-password-error").style.display = "block";
             isValid = false;
+        } else {
+            document.getElementById("login-password-error").style.display = "none";
         }
 
         if (!isValid) return;
