@@ -5661,29 +5661,7 @@
                     });
                 }
 
-                loginForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    let isValid = true;
-                    const email = document.getElementById('login-email').value;
-                    const password = document.getElementById('login-password').value;
-
-                    if (!validateEmail(email)) { document.getElementById('login-email-error').style.display = 'block'; isValid = false; } else { document.getElementById('login-email-error').style.display = 'none'; }
-                    if (password.length < 8) { document.getElementById('login-password-error').style.display = 'block'; isValid = false; } else { document.getElementById('login-password-error').style.display = 'none'; }
-
-                    if (isValid) {
-                        const submitBtn = document.querySelector('#login-form .btn');
-                        const originalText = submitBtn.innerHTML;
-                        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
-                     setTimeout(() => {
-                            document.getElementById('auth-container').style.display = 'none';
-                            document.getElementById('app-container').style.display = 'block';
-                            submitBtn.innerHTML = originalText;
-                            alert('Login successful! Welcome to Elite Club.');
-                            updateAllBalances(); // Update balances on login
-                            showPage('home-page'); // Ensure home page is shown after login
-                        }, 1500);
-  }
-});
+            
                     signupForm.addEventListener('submit', function(e) {
                     e.preventDefault();
                     let isValid = true;
@@ -6561,14 +6539,14 @@
     
   <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
-  import {
+import {
     getAuth,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     onAuthStateChanged
-  } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
 
-  const firebaseConfig = {
+const firebaseConfig = {
     apiKey: "AIzaSyCLJ9Tgn0t_zvb3tJ62zr31fg8C2ZpYqoE",
     authDomain: "club-5a69f.firebaseapp.com",
     projectId: "club-5a69f",
@@ -6576,44 +6554,102 @@
     messagingSenderId: "694994719528",
     appId: "1:694994719528:web:1f035c0154a30e5cebb61d",
     measurementId: "G-MDDHYT6S7C"
-  };
+};
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
-  // Replace IDs with your real form/input IDs
-  const loginForm = document.querySelector("#login-form");
-  const signupForm = document.querySelector("#signup-form");
-
-  if (signupForm) {
+// Handle signup
+const signupForm = document.querySelector("#signup-form");
+if (signupForm) {
     signupForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const email = document.getElementById("signup-email").value;
-      const password = document.getElementById("signup-password").value;
-      try {
-        const userCred = await createUserWithEmailAndPassword(auth, email, password);
-        alert("Signup successful: " + userCred.user.email);
-      } catch (error) {
-        alert("Signup error: " + error.message);
-      }
+        e.preventDefault();
+        const submitBtn = signupForm.querySelector('.btn');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating...';
+        
+        const email = document.getElementById("signup-email").value;
+        const password = document.getElementById("signup-password").value;
+        
+        try {
+            await createUserWithEmailAndPassword(auth, email, password);
+            alert("Account created successfully! Please login to continue.");
+            document.querySelector('.auth-tab[data-tab="login"]').click();
+        } catch (error) {
+            alert("Signup error: " + error.message);
+        } finally {
+            submitBtn.innerHTML = originalText;
+        }
     });
-  }
+}
 
-  if (loginForm) {
+// Handle login
+const loginForm = document.querySelector("#login-form");
+if (loginForm) {
     loginForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const email = document.getElementById("login-email").value;
-      const password = document.getElementById("login-password").value;
-      try {
-        const userCred = await signInWithEmailAndPassword(auth, email, password);
-        alert("Login successful: " + userCred.user.email);
-      } catch (error) {
-        alert("Login error: " + error.message);
-      }
-    });
-  }
+        e.preventDefault();
+        
+        // Basic validation
+        const email = document.getElementById("login-email").value;
+        const password = document.getElementById("login-password").value;
+        let isValid = true;
 
-  // Optional: You can add onAuthStateChanged() to auto show dashboard
+        if (!validateEmail(email)) {
+            document.getElementById("login-email-error").style.display = "block";
+            isValid = false;
+        } else {
+            document.getElementById("login-email-error").style.display = "none";
+        }
+
+        if (password.length < 8) {
+            document.getElementById("login-password-error").style.display = "block";
+            isValid = false;
+        } else {
+            document.getElementById("login-password-error").style.display = "none";
+        }
+
+        if (!isValid) return;
+
+        const submitBtn = loginForm.querySelector('.btn');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+
+        try {
+            await signInWithEmailAndPassword(auth, email, password);
+            // Success - handled by onAuthStateChanged
+        } catch (error) {
+            submitBtn.innerHTML = originalText;
+            alert("Login failed: " + error.message);
+        }
+    });
+}
+
+// Handle auth state changes
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        // User is signed in
+        document.getElementById('auth-container').style.display = 'none';
+        document.getElementById('app-container').style.display = 'block';
+        updateAllBalances();
+        showPage('home-page');
+        
+        // Update user info in account page
+        const email = user.email;
+        const name = user.displayName || 'Elite User';
+        document.getElementById('user-email').textContent = email;
+        document.getElementById('user-name').textContent = name;
+    } else {
+        // User is signed out
+        document.getElementById('auth-container').style.display = 'flex';
+        document.getElementById('app-container').style.display = 'none';
+    }
+});
+
+// Helper function for email validation (needs to be accessible to the module)
+function validateEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+}
 </script>
     
     <script type="module">
