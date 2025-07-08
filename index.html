@@ -6539,230 +6539,6 @@
     
   <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
-import {
-    getAuth,
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-    onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
-
-const firebaseConfig = {
-    apiKey: "AIzaSyCLJ9Tgn0t_zvb3tJ62zr31fg8C2ZpYqoE",
-    authDomain: "club-5a69f.firebaseapp.com",
-    projectId: "club-5a69f",
-    storageBucket: "club-5a69f.appspot.com",
-    messagingSenderId: "694994719528",
-    appId: "1:694994719528:web:1f035c0154a30e5cebb61d",
-    measurementId: "G-MDDHYT6S7C"
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-      
-      const db = getFirestore(app);
-
-// Handle signup
-const signupForm = document.querySelector("#signup-form");
-if (signupForm) {
-    signupForm.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        const submitBtn = signupForm.querySelector('.btn');
-        const originalText = submitBtn.innerHTML;
-        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating...';
-        
-        const email = document.getElementById("signup-email").value;
-        const password = document.getElementById("signup-password").value;
-        const name = document.getElementById("signup-name").value;
-        const mobile = document.getElementById("signup-mobile").value;
-
-        try {
-            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-const user = userCredential.user;
-
-// Store additional user data in Firestore
-const userData = {
-  name: name,
-  email: email,
-  phone: mobile,
-  createdAt: new Date().toISOString()
-};
-
-await setDoc(doc(db, "users", user.uid), userData);
-
-// Also store in localStorage
-localStorage.setItem('userProfile', JSON.stringify(userData));
-            
-            alert("Account created successfully! Please login to continue.");
-            document.querySelector('.auth-tab[data-tab="login"]').click();
-        } catch (error) {
-            alert("Signup error: " + error.message);
-        } finally {
-            submitBtn.innerHTML = originalText;
-        }
-    });
-}
-
-// Handle login
-const loginForm = document.querySelector("#login-form");
-if (loginForm) {
-    loginForm.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        
-        // Basic validation
-        const email = document.getElementById("login-email").value;
-        const password = document.getElementById("login-password").value;
-        let isValid = true;
-
-        if (!validateEmail(email)) {
-            document.getElementById("login-email-error").style.display = "block";
-            isValid = false;
-        } else {
-            document.getElementById("login-email-error").style.display = "none";
-        }
-
-        if (password.length < 8) {
-            document.getElementById("login-password-error").style.display = "block";
-            isValid = false;
-        } else {
-            document.getElementById("login-password-error").style.display = "none";
-        }
-
-        if (!isValid) return;
-
-        const submitBtn = loginForm.querySelector('.btn');
-        const originalText = submitBtn.innerHTML;
-        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
-
-        try {
-            await signInWithEmailAndPassword(auth, email, password);
-            // Success - handled by onAuthStateChanged
-        } catch (error) {
-            submitBtn.innerHTML = originalText;
-            alert("Login failed: " + error.message);
-        }
-    });
-}
-
-// Handle auth state changes
-onAuthStateChanged(auth, (user) => {
-    if (user) {
-        // User is signed in
-        document.getElementById('auth-container').style.display = 'none';
-        document.getElementById('app-container').style.display = 'block';
-        updateAllBalances();
-        showPage('home-page');
-        
-        // Get user data from localStorage
-        const userData = JSON.parse(localStorage.getItem('userProfile')) || {};
-        
-        // Update user info in account page
-        document.getElementById('user-email').textContent = user.email || userData.email || '';
-        document.getElementById('user-name').textContent = userData.name || 'New User';
-        document.getElementById('user-phone').textContent = userData.phone || '+91 ---';
-        
-        // Update form fields with actual data
-        document.querySelector('#profile-section input[type="text"]').value = userData.name || '';
-        document.querySelector('#profile-section input[type="email"]').value = user.email || userData.email || '';
-        document.querySelector('#profile-section input[type="tel"]').value = userData.phone || '';
-    } else {
-        // User is signed out
-        document.getElementById('auth-container').style.display = 'flex';
-        document.getElementById('app-container').style.display = 'none';
-    }
-});
-
-// Helper function for email validation (needs to be accessible to the module)
-function validateEmail(email) {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(email);
-}
-      // Handle profile updates
-async function saveProfileUpdates() {
-  const user = auth.currentUser;
-  if (!user) return;
-  
-  const userData = {
-    name: document.getElementById('account-name').value,
-    email: document.getElementById('account-email').value,
-    phone: document.getElementById('account-phone').value,
-    dob: document.getElementById('account-dob').value,
-    address: document.getElementById('account-address').value,
-    state: document.getElementById('account-state').value,
-    lastUpdated: new Date().toISOString()
-  };
-  
-  try {
-    await setDoc(doc(db, "users", user.uid), userData, { merge: true });
-    // Also store in localStorage for quick access
-    localStorage.setItem('userProfile', JSON.stringify(userData));
-    alert('Profile updated successfully!');
-  } catch (error) {
-    console.error("Error saving profile:", error);
-    alert('Error saving profile. Please try again.');
-  }
-}
-      
-// Add event listener to save button
-document.querySelector('#profile-section .btn-primary')?.addEventListener('click', saveProfileUpdates);
-      // Account Page on Load
-     async function initializeAccountPage() {
-  const user = auth.currentUser;
-  if (!user) return;
-  
-  // First try localStorage for quick load
-  const localData = JSON.parse(localStorage.getItem('userProfile')) || {};
-  
-  // Then fetch from Firestore
-  try {
-    const docRef = doc(db, "users", user.uid);
-    const docSnap = await getDoc(docRef);
-    
-    if (docSnap.exists()) {
-      const userData = docSnap.data();
-      
-      // Update form fields
-      document.getElementById('account-name').value = userData.name || '';
-      document.getElementById('account-email').value = user.email || userData.email || '';
-      document.getElementById('account-phone').value = userData.phone || '';
-      document.getElementById('account-dob').value = userData.dob || '';
-      document.getElementById('account-address').value = userData.address || '';
-      document.getElementById('account-state').value = userData.state || '';
-      
-      // Update display elements
-      document.getElementById('user-email').textContent = user.email || userData.email || '';
-      document.getElementById('user-name').textContent = userData.name || 'Elite User';
-      document.getElementById('user-phone').textContent = userData.phone || '+91 ---';
-      
-      // Update localStorage
-      localStorage.setItem('userProfile', JSON.stringify(userData));
-    } else {
-      // No Firestore data yet, use localStorage if available
-      if (localData) {
-        document.getElementById('account-name').value = localData.name || '';
-        document.getElementById('account-email').value = user.email || localData.email || '';
-        document.getElementById('account-phone').value = localData.phone || '';
-        document.getElementById('account-dob').value = localData.dob || '';
-        document.getElementById('account-address').value = localData.address || '';
-        document.getElementById('account-state').value = localData.state || '';
-      }
-    }
-  } catch (error) {
-    console.error("Error loading profile:", error);
-    // Fallback to localStorage
-    if (localData) {
-      document.getElementById('account-name').value = localData.name || '';
-      document.getElementById('account-email').value = user.email || localData.email || '';
-      document.getElementById('account-phone').value = localData.phone || '';
-      document.getElementById('account-dob').value = localData.dob || '';
-      document.getElementById('account-address').value = localData.address || '';
-      document.getElementById('account-state').value = localData.state || '';
-    }
-  }
-}
-// Call this when account page is shown
-document.querySelector('.nav-item[data-page="account-page"]')?.addEventListener('click', initializeAccountPage);
-  // FireStore
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
   import {
     getAuth,
     createUserWithEmailAndPassword,
@@ -6776,29 +6552,178 @@ document.querySelector('.nav-item[data-page="account-page"]')?.addEventListener(
     getDoc
   } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
 
+  const firebaseConfig = {
+    apiKey: "AIzaSyCLJ9Tgn0t_zvb3tJ62zr31fg8C2ZpYqoE",
+    authDomain: "club-5a69f.firebaseapp.com",
+    projectId: "club-5a69f",
+    storageBucket: "club-5a69f.appspot.com",
+    messagingSenderId: "694994719528",
+    appId: "1:694994719528:web:1f035c0154a30e5cebb61d",
+    measurementId: "G-MDDHYT6S7C"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  // Helper functions
+  function validateEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+  }
+
+  function validatePassword(password) {
+    return password.length >= 8;
+  }
+
+  // Handle signup
+  const signupForm = document.querySelector("#signup-form");
+  if (signupForm) {
+    signupForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const submitBtn = signupForm.querySelector('.btn');
+      const originalText = submitBtn.innerHTML;
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating...';
       
-</script>
-    
-    
-    <script type="module">
-  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+      const email = document.getElementById("signup-email").value;
+      const password = document.getElementById("signup-password").value;
+      const name = document.getElementById("signup-name").value;
+      const mobile = document.getElementById("signup-mobile").value;
 
-  const auth = getAuth();
+      try {
+        // Validate inputs
+        if (!validateEmail(email)) {
+          throw new Error("Please enter a valid email address");
+        }
+        if (!validatePassword(password)) {
+          throw new Error("Password must be at least 8 characters");
+        }
 
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+
+        // Store additional user data
+        const userData = {
+          name: name,
+          email: email,
+          phone: mobile,
+          createdAt: new Date().toISOString()
+        };
+
+        await setDoc(doc(db, "users", user.uid), userData);
+        localStorage.setItem('userProfile', JSON.stringify(userData));
+        
+        alert("Account created successfully! Please login to continue.");
+        document.querySelector('.auth-tab[data-tab="login"]').click();
+      } catch (error) {
+        alert(error.message);
+      } finally {
+        submitBtn.innerHTML = originalText;
+      }
+    });
+  }
+
+  // Handle login
+  const loginForm = document.querySelector("#login-form");
+  if (loginForm) {
+    loginForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      
+      const email = document.getElementById("login-email").value;
+      const password = document.getElementById("login-password").value;
+      
+      // Clear previous errors
+      document.getElementById("login-email-error").style.display = "none";
+      document.getElementById("login-password-error").style.display = "none";
+
+      // Validate inputs
+      let isValid = true;
+      if (!validateEmail(email)) {
+        document.getElementById("login-email-error").style.display = "block";
+        isValid = false;
+      }
+      if (!validatePassword(password)) {
+        document.getElementById("login-password-error").style.display = "block";
+        isValid = false;
+      }
+      if (!isValid) return;
+
+      const submitBtn = loginForm.querySelector('.btn');
+      const originalText = submitBtn.innerHTML;
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        // Success - handled by onAuthStateChanged
+      } catch (error) {
+        submitBtn.innerHTML = originalText;
+        alert("Login failed: " + error.message);
+      }
+    });
+  }
+
+  // Handle auth state changes
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      // ✅ Fetch and display email
-      const email = user.email;
-      const name = user.displayName || 'Elite User';
-
-      document.getElementById('user-email').textContent = email;
-      document.getElementById('user-name').textContent = name;
-
-      // Optional: phone number (if available)
-      const phone = user.phoneNumber || "+91 ---";
-      document.getElementById('user-phone').textContent = phone;
+      // User is signed in
+      document.getElementById('auth-container').style.display = 'none';
+      document.getElementById('app-container').style.display = 'block';
+      
+      // Try to get user data from Firestore
+      getDoc(doc(db, "users", user.uid)).then((docSnap) => {
+        const userData = docSnap.exists() ? docSnap.data() : {};
+        
+        // Update UI with user data
+        document.getElementById('user-email').textContent = user.email || userData.email || '';
+        document.getElementById('user-name').textContent = userData.name || 'New User';
+        document.getElementById('user-phone').textContent = userData.phone || '+91 ---';
+        
+        // Store in localStorage for quick access
+        localStorage.setItem('userProfile', JSON.stringify({
+          ...userData,
+          email: user.email
+        }));
+      }).catch((error) => {
+        console.error("Error getting user data:", error);
+      });
+      
+      updateAllBalances();
+      showPage('home-page');
+    } else {
+      // User is signed out
+      document.getElementById('auth-container').style.display = 'flex';
+      document.getElementById('app-container').style.display = 'none';
     }
-  })
+  });
+
+  // Handle profile updates
+  async function saveProfileUpdates() {
+    const user = auth.currentUser;
+    if (!user) return;
+    
+    const userData = {
+      name: document.getElementById('account-name').value,
+      email: document.getElementById('account-email').value,
+      phone: document.getElementById('account-phone').value,
+      dob: document.getElementById('account-dob').value,
+      address: document.getElementById('account-address').value,
+      state: document.getElementById('account-state').value,
+      lastUpdated: new Date().toISOString()
+    };
+    
+    try {
+      await setDoc(doc(db, "users", user.uid), userData, { merge: true });
+      localStorage.setItem('userProfile', JSON.stringify(userData));
+      alert('Profile updated successfully!');
+    } catch (error) {
+      console.error("Error saving profile:", error);
+      alert('Error saving profile. Please try again.');
+    }
+  }
+
+  // Add event listener to save button
+  document.querySelector('#profile-section .btn-primary')?.addEventListener('click', saveProfileUpdates);
 </script>
 
 
