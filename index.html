@@ -5674,28 +5674,14 @@
                         const submitBtn = document.querySelector('#login-form .btn');
                         const originalText = submitBtn.innerHTML;
                         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
-                        import { signInWithEmailAndPassword, getAuth } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
-
-const auth = getAuth();
-
-document.getElementById('login-form').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  const email = document.getElementById('login-email').value;
-  const password = document.getElementById('login-password').value;
-  const btn = document.querySelector('#login-form .btn');
-  const originalText = btn.innerHTML;
-  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
-
-  try {
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    alert('Login successful!');
-    document.getElementById('auth-container').style.display = 'none';
-    document.getElementById('app-container').style.display = 'block';
-    showPage('home-page');
-  } catch (err) {
-    alert('Login failed: ' + err.message);
-  } finally {
-    btn.innerHTML = originalText;
+                     setTimeout(() => {
+                            document.getElementById('auth-container').style.display = 'none';
+                            document.getElementById('app-container').style.display = 'block';
+                            submitBtn.innerHTML = originalText;
+                            alert('Login successful! Welcome to Elite Club.');
+                            updateAllBalances(); // Update balances on login
+                            showPage('home-page'); // Ensure home page is shown after login
+                        }, 1500);
   }
 });
 
