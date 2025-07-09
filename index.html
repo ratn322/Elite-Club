@@ -4900,83 +4900,38 @@
                                     </div>
                                 </div>
 
-                                <div class="kyc-form">
-                                    <h3 class="kyc-title">
-                                        <i class="fas fa-id-badge"></i> Identity Verification
-                                    </h3>
+                               <div class="kyc-form">
+  <h3 class="kyc-title">
+    <i class="fas fa-id-badge"></i> Identity Verification
+  </h3>
 
-                                    <div class="form-grid">
-                                        <div>
-                                            <div class="form-group">
-                                                <label class="form-label">PAN Card Number</label>
-                                                <input type="text" class="form-input" placeholder="Enter PAN number">
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="form-label">Aadhaar Card Number</label>
-                                                <input type="text" class="form-input" placeholder="Enter Aadhaar number">
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div class="form-group">
-                                                <label class="form-label">Full Name (as per documents)</label>
-                                                <input type="text" class="form-input" placeholder="Enter full name">
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="form-label">Date of Birth (as per documents)</label>
-                                                <input type="date" class="form-input">
-                                            </div>
-                                        </div>
-                                    </div>
+  <div class="form-grid">
+    <div>
+      <div class="form-group">
+        <label class="form-label">PAN Card Number</label>
+        <input type="text" class="form-input" id="kyc-pan" placeholder="Enter PAN number">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Aadhaar Card Number</label>
+        <input type="text" class="form-input" id="kyc-aadhaar" placeholder="Enter Aadhaar number">
+      </div>
+    </div>
+    <div>
+      <div class="form-group">
+        <label class="form-label">Full Name (as per documents)</label>
+        <input type="text" class="form-input" id="kyc-fullname" placeholder="Enter full name">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Date of Birth (as per documents)</label>
+        <input type="date" class="form-input" id="kyc-dob">
+      </div>
+    </div>
+  </div>
 
-                                    <h3 class="kyc-title" style="margin-top: 30px;">
-                                        <i class="fas fa-file-upload"></i> Document Upload
-                                    </h3>
-
-                                    <div class="doc-upload">
-                                        <i class="fas fa-cloud-upload-alt"></i>
-                                        <p>Upload PAN Card & Aadhaar Card</p>
-                                        <small>Supported formats: JPG, PNG, PDF (Max 5MB each)</small>
-                                        <input type="file" class="file-input" multiple>
-                                    </div>
-
-                                    <div class="doc-preview">
-                                        <div class="doc-item">
-                                            <div style="background: #2a0d5a; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
-                                                <i class="fas fa-file-image" style="font-size: 40px; color: var(--accent);"></i>
-                                            </div>
-                                            <div class="doc-overlay">
-                                                <button class="btn btn-outline">
-                                                    <i class="fas fa-eye"></i> View
-                                                </button>
-                                                <button class="btn btn-outline">
-                                                    <i class="fas fa-trash"></i> Remove
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="doc-item">
-                                            <div style="background: #1a0a3a; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
-                                                <i class="fas fa-file-pdf" style="font-size: 40px; color: var(--danger);"></i>
-                                            </div>
-                                            <div class="doc-overlay">
-                                                <button class="btn btn-outline">
-                                                    <i class="fas fa-eye"></i> View
-                                                </button>
-                                                <button class="btn btn-outline">
-                                                    <i class="fas fa-trash"></i> Remove
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="nav-buttons">
-                                        <button class="btn btn-outline">
-                                            <i class="fas fa-arrow-left"></i> Previous Step
-                                        </button>
-                                        <button class="btn btn-primary">
-                                            Next Step <i class="fas fa-arrow-right"></i>
-                                        </button>
-                                    </div>
-                                </div>
+  <button class="btn btn-primary" id="submit-kyc">
+    <i class="fas fa-check-circle"></i> Submit KYC
+  </button>
+</div>
                             </div>
 
                             <!-- Bank Details Section -->
@@ -5003,23 +4958,27 @@
                                         </div>
 
                                         <div class="bank-details">
-                                            <div class="bank-detail">
-                                                <span class="detail-label">Account Holder</span>
-                                                <span class="detail-value">Rajesh Kumar</span>
-                                            </div>
-                                            <div class="bank-detail">
-                                                <span class="detail-label">Account Number</span>
-                                                <span class="detail-value">XXXXXXX7890</span>
-                                            </div>
-                                            <div class="bank-detail">
-                                                <span class="detail-label">IFSC Code</span>
-                                                <span class="detail-value">SBIN0000123</span>
-                                            </div>
-                                            <div class="bank-detail">
-                                                <span class="detail-label">Account Type</span>
-                                                <span class="detail-value">Savings</span>
-                                            </div>
-                                        </div>
+  <div class="form-group">
+    <label class="form-label">Bank Name</label>
+    <input type="text" class="form-input" id="bank-name" placeholder="Enter bank name">
+  </div>
+  <div class="form-group">
+    <label class="form-label">Account Number</label>
+    <input type="text" class="form-input" id="account-number" placeholder="Enter account number">
+  </div>
+  <div class="form-group">
+    <label class="form-label">IFSC Code</label>
+    <input type="text" class="form-input" id="ifsc-code" placeholder="Enter IFSC code">
+  </div>
+  <div class="form-group">
+    <label class="form-label">Account Holder Name</label>
+    <input type="text" class="form-input" id="account-holder" placeholder="Enter account holder name">
+  </div>
+
+  <button class="btn btn-primary" id="save-bank-details">
+    <i class="fas fa-save"></i> Save Bank Details
+  </button>
+</div>
                                     </div>
 
                                     <div class="bank-card">
@@ -5532,6 +5491,17 @@
                 document.getElementById('main-wallet-balance').textContent = formattedBalance;
                 document.getElementById('game-wallet-balance').textContent = formattedBalance;
                 document.getElementById('total-wallet-balance').textContent = formattedBalance;
+                // KYC सबमिट बटन के लिए
+document.getElementById('submit-kyc')?.addEventListener('click', submitKYC);
+
+// बैंक डिटेल्स सेव बटन के लिए
+document.getElementById('save-bank-details')?.addEventListener('click', saveBankDetails);
+
+// अकाउंट पेज खुलने पर डेटा लोड करें
+document.querySelector('.nav-item[data-page="account-page"]')?.addEventListener('click', () => {
+  loadKYCData();
+  loadBankDetails();
+});
                 // Update other game wallet balances if they exist
                 const otherGameBalances = ['aviator-wallet-balance', 'roulette-wallet-balance', 'poker-wallet-balance', 'andar-bahar-wallet-balance', 'teen-patti-wallet-balance'];
                 otherGameBalances.forEach(id => {
@@ -5661,7 +5631,7 @@
                     });
                 }
 
-            
+
                     signupForm.addEventListener('submit', function(e) {
                     e.preventDefault();
                     let isValid = true;
@@ -6535,8 +6505,108 @@
 
         });
 
+        // KYC सबमिट फंक्शन
+async function submitKYC() {
+  const user = auth.currentUser;
+  if (!user) return;
+
+  const submitBtn = document.getElementById('submit-kyc');
+  const originalText = submitBtn.innerHTML;
+  submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+
+  const kycData = {
+    panNumber: document.getElementById('kyc-pan').value,
+    aadhaarNumber: document.getElementById('kyc-aadhaar').value,
+    fullName: document.getElementById('kyc-fullname').value,
+    dob: document.getElementById('kyc-dob').value,
+    status: 'pending',
+    submittedAt: new Date().toISOString()
+  };
+
+  try {
+    await setDoc(doc(db, "kyc", user.uid), kycData);
+    alert('KYC submitted successfully!');
+    loadKYCData(); // डेटा रीलोड करें
+  } catch (error) {
+    console.error("Error submitting KYC:", error);
+    alert('Error submitting KYC. Please try again.');
+  } finally {
+    submitBtn.innerHTML = originalText;
+  }
+}
+
+// बैंक डिटेल्स सेव फंक्शन
+async function saveBankDetails() {
+  const user = auth.currentUser;
+  if (!user) return;
+
+  const saveBtn = document.getElementById('save-bank-details');
+  const originalText = saveBtn.innerHTML;
+  saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+
+  const bankData = {
+    bankName: document.getElementById('bank-name').value,
+    accountNumber: document.getElementById('account-number').value,
+    ifscCode: document.getElementById('ifsc-code').value,
+    accountHolder: document.getElementById('account-holder').value,
+    lastUpdated: new Date().toISOString()
+  };
+
+  try {
+    await setDoc(doc(db, "bankDetails", user.uid), bankData, { merge: true });
+    alert('Bank details saved successfully!');
+  } catch (error) {
+    console.error("Error saving bank details:", error);
+    alert('Error saving bank details. Please try again.');
+  } finally {
+    saveBtn.innerHTML = originalText;
+  }
+}
+
+// KYC डेटा लोड करने का फंक्शन
+async function loadKYCData() {
+  const user = auth.currentUser;
+  if (!user) return;
+
+  try {
+    const docRef = doc(db, "kyc", user.uid);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      const kycData = docSnap.data();
+      document.getElementById('kyc-pan').value = kycData.panNumber || '';
+      document.getElementById('kyc-aadhaar').value = kycData.aadhaarNumber || '';
+      document.getElementById('kyc-fullname').value = kycData.fullName || '';
+      document.getElementById('kyc-dob').value = kycData.dob || '';
+    }
+  } catch (error) {
+    console.error("Error loading KYC data:", error);
+  }
+}
+
+// बैंक डिटेल्स लोड करने का फंक्शन
+async function loadBankDetails() {
+  const user = auth.currentUser;
+  if (!user) return;
+
+  try {
+    const docRef = doc(db, "bankDetails", user.uid);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      const bankData = docSnap.data();
+      document.getElementById('bank-name').value = bankData.bankName || '';
+      document.getElementById('account-number').value = bankData.accountNumber || '';
+      document.getElementById('ifsc-code').value = bankData.ifscCode || '';
+      document.getElementById('account-holder').value = bankData.accountHolder || '';
+    }
+  } catch (error) {
+    console.error("Error loading bank details:", error);
+  }
+}
+
     </script>
-    
+
   <script type="module">
  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
   import {
@@ -6545,7 +6615,7 @@
     signInWithEmailAndPassword,
     onAuthStateChanged
   } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
-  import { 
+  import {
     getFirestore,
     doc,
     setDoc,
@@ -6574,7 +6644,7 @@ if (signupForm) {
         const submitBtn = signupForm.querySelector('.btn');
         const originalText = submitBtn.innerHTML;
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating...';
-        
+
         const email = document.getElementById("signup-email").value;
         const password = document.getElementById("signup-password").value;
         const name = document.getElementById("signup-name").value;
@@ -6583,7 +6653,7 @@ if (signupForm) {
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
-            
+
             // Store additional user data
             const userData = {
                 name: name,
@@ -6592,14 +6662,14 @@ if (signupForm) {
                 // Add other fields as needed
                 createdAt: new Date().toISOString()
             };
-            
-            
+
+
            // I added this Line
             await setDoc(doc(db, "users", user.uid), userData);
-            
+
             // Store in localStorage (simple solution)
             localStorage.setItem('userProfile', JSON.stringify(userData));
-            
+
             document.querySelector('.auth-tab[data-tab="login"]').click();
         } catch (error) {
             alert("Signup error: " + error.message);
@@ -6614,7 +6684,7 @@ const loginForm = document.querySelector("#login-form");
 if (loginForm) {
     loginForm.addEventListener("submit", async (e) => {
         e.preventDefault();
-        
+
         // Basic validation
         const email = document.getElementById("login-email").value;
         const password = document.getElementById("login-password").value;
@@ -6658,15 +6728,15 @@ onAuthStateChanged(auth, (user) => {
         document.getElementById('app-container').style.display = 'block';
         updateAllBalances();
         showPage('home-page');
-        
+
         // Get user data from localStorage
         const userData = JSON.parse(localStorage.getItem('userProfile')) || {};
-        
+
         // Update user info in account page
         document.getElementById('user-email').textContent = user.email || userData.email || '';
         document.getElementById('user-name').textContent = userData.name || 'New User';
         document.getElementById('user-phone').textContent = userData.phone || '+91 ---';
-        
+
         // Update form fields with actual data
         document.querySelector('#profile-section input[type="text"]').value = userData.name || '';
         document.querySelector('#profile-section input[type="email"]').value = user.email || userData.email || '';
@@ -6691,9 +6761,9 @@ function validateEmail(email) {
      //   phone: document.getElementById('account-phone').value,
      //   dob: document.getElementById('account-dob').value,
      //   address: document.getElementById('account-address').value,
-     //   state: document.getElementById('account-state').value 
+     //   state: document.getElementById('account-state').value
      // };
-    
+
     //  localStorage.setItem('userProfile', JSON.stringify(userData));
      // alert('Profile updated successfully!');
 // }
@@ -6701,7 +6771,7 @@ function validateEmail(email) {
 async function saveProfileUpdates() {
   const user = auth.currentUser;
   if (!user) return;
-  
+
   const userData = {
     name: document.getElementById('account-name').value,
     email: document.getElementById('account-email').value,
@@ -6711,7 +6781,7 @@ async function saveProfileUpdates() {
     state: document.getElementById('account-state').value,
     lastUpdated: new Date().toISOString()
   };
-  
+
   try {
     await setDoc(doc(db, "users", user.uid), userData, { merge: true });
     // Also store in localStorage for quick access
@@ -6728,7 +6798,7 @@ document.querySelector('#profile-section .btn-primary')?.addEventListener('click
       // Account Page on Load
      // function initializeAccountPage() {
    // const userData = JSON.parse(localStorage.getItem('userProfile')) || {};
-    
+
     // if (userData) {
     //    document.getElementById('account-name').value = userData.name || '';
     //    document.getElementById('account-email').value = userData.email || '';
@@ -6742,18 +6812,18 @@ document.querySelector('#profile-section .btn-primary')?.addEventListener('click
 async function initializeAccountPage() {
   const user = auth.currentUser;
   if (!user) return;
-  
+
   // First try localStorage for quick load
   const localData = JSON.parse(localStorage.getItem('userProfile')) || {};
-  
+
   // Then fetch from Firestore
   try {
     const docRef = doc(db, "users", user.uid);
     const docSnap = await getDoc(docRef);
-    
+
     if (docSnap.exists()) {
       const userData = docSnap.data();
-      
+
       // Update form fields
       document.getElementById('account-name').value = userData.name || '';
       document.getElementById('account-email').value = user.email || userData.email || '';
@@ -6761,12 +6831,12 @@ async function initializeAccountPage() {
       document.getElementById('account-dob').value = userData.dob || '';
       document.getElementById('account-address').value = userData.address || '';
       document.getElementById('account-state').value = userData.state || '';
-      
+
       // Update display elements
       document.getElementById('user-email').textContent = user.email || userData.email || '';
       document.getElementById('user-name').textContent = userData.name || 'Elite User';
       document.getElementById('user-phone').textContent = userData.phone || '+91 ---';
-      
+
       // Update localStorage
       localStorage.setItem('userProfile', JSON.stringify(userData));
     } else {
@@ -6798,10 +6868,10 @@ async function initializeAccountPage() {
 
 // Call this when account page is shown
 document.querySelector('.nav-item[data-page="account-page"]')?.addEventListener('click', initializeAccountPage);
-      
+
 </script>
-    
-    
+
+
     <script type="module">
   import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
 
